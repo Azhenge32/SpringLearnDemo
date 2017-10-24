@@ -16,6 +16,8 @@ public class UserServiceImpl implements UserService {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
     public void save(User user) {
+        jdbcTemplate.setFetchSize(1);
+        jdbcTemplate.setMaxRows(1);
         jdbcTemplate.update("insert into user(name, age, sex) values(?,?,?)",
                 new Object[]{user.getName(), user.getAge(), user.getSex()},
                 new int[] {Types.VARBINARY, Types.INTEGER, Types.VARBINARY});
